@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 
 import { Location } from "@/appTypes/locations";
 import { getCompanyLocations } from "@/db/locations";
-import { convertDBLocationToLocation } from "@/utils/locations";
+import { convertDBLocationToLocation } from "@/utils/db";
 
 const locationRoutes = Router();
 
