@@ -4,9 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsx watch ./src/server.ts"
+    "dev": "tsx watch ./src/server.ts",
+    "setup": "NODE_ENV=development ts-node ./src/scripts/setUpDB.ts",
+    "setupLocations": "ts-node ./src/scripts/seedLocations.ts",
+    "setupCompanies": "ts-node ./src/scripts/seedCompanies.ts",
+    "setupUserCompanies": "ts-node ./src/scripts/seedUserCompanies.ts"
   },
   "dependencies": {
+    "csv": "^6.3.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "pg": "^8.11.3",
@@ -17,6 +22,7 @@
     "@types/node": "^20.6.0",
     "@types/pg": "^8.10.2",
     "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
     "tsx": "^3.12.8",
     "typescript": "^5.2.2"
   }

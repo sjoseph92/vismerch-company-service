@@ -1,8 +1,10 @@
-/* 
-*
-*   Next Authentication
-*
-*/
+/*
+ *
+ *
+ * Next Authentication Tables
+ *
+ *
+ */
 CREATE TABLE
     verification_token (
         identifier TEXT NOT NULL,
@@ -31,7 +33,7 @@ CREATE TABLE
 CREATE TABLE
     sessions (
         id SERIAL,
-        user_id INTEGER NOT NULL REFERENCES users(id),
+        user_id INTEGER NOT NULL,
         expires TIMESTAMPTZ NOT NULL,
         session_token VARCHAR(255) NOT NULL,
         PRIMARY KEY (id)
@@ -47,27 +49,43 @@ CREATE TABLE
         PRIMARY KEY (id)
     );
 
+/*
+ * Companies Table
+ */
 CREATE TABLE
-    profile (
+    companies (
         id SERIAL,
-        user_id INTEGER NOT NULL REFERENCES users(id),
-        name VARCHAR(255),
-        email VARCHAR(255),
-        email_verified TIMESTAMPTZ,
-        image TEXT,
+        name VARCHAR(255) NOT NULL UNIQUE,
+        address_line_1 VARCHAR(255) NOT NULL,
+        address_line_2 VARCHAR(255),
+        city VARCHAR(255) NOT NULL,
+        state VARCHAR(255) NOT NULL,
+        zip_code VARCHAR(10) NOT NULL,
+        coordinate GEOMETRY (POINT, 4326),
         PRIMARY KEY (id)
     );
 
-CREATE UNIQUE INDEX compound_id ON accounts(compound_id);
+/*
+ * Company Locations Table
+ */
+CREATE TABLE
+    company_locations (
+        id SERIAL,
+        company_id INTEGER NOT NULL REFERENCES companies (id),
+        location_id INTEGER NOT NULL REFERENCES locations (id),
+        PRIMARY KEY (id)
+    );
 
-CREATE INDEX provider_account_id ON accounts(provider_account_id);
-
-CREATE INDEX provider_id ON accounts(provider_id);
-
-CREATE INDEX user_id ON accounts(user_id);
-
-CREATE UNIQUE INDEX session_token ON sessions(session_token);
-
-CREATE UNIQUE INDEX access_token ON sessions(access_token);
-
-CREATE UNIQUE INDEX email ON users(email);
+CREATE TABLE
+    locations (
+        id SERIAL,
+        name VARCHAR(255) NOT NULL UNIQUE,
+        brand VARCHAR(255),
+        address_line_1 VARCHAR(255) NOT NULL,
+        address_line_2 VARCHAR(255),
+        city VARCHAR(255) NOT NULL,
+        state VARCHAR(255) NOT NULL,
+        zip_code VARCHAR(10) NOT NULL,
+        coordinate GEOMETRY (POINT, 4326),
+        PRIMARY KEY (id)
+    );

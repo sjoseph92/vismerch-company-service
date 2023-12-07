@@ -1,8 +1,7 @@
 import { Coordinate, GeoJSONPoint } from "./geo";
 
-export interface NewLocation {
+export interface NewCompany {
   name: string;
-  brand: string;
   addressLine1: string;
   addressLine2: string | null;
   city: string;
@@ -11,10 +10,9 @@ export interface NewLocation {
   coordinate: GeoJSONPoint;
 }
 
-export interface DBLocation {
+export interface DBCompany {
   id: number;
   name: string;
-  brand: string;
   address_line_1: string;
   address_line_2: string | null;
   city: string;
@@ -22,10 +20,9 @@ export interface DBLocation {
   zip_code: string;
   coordinate: GeoJSONPoint;
 }
-export interface Location {
+export interface Company {
   id: number;
   name: string;
-  brand: string;
   addressLine1: string;
   addressLine2: string | null;
   city: string;

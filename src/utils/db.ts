@@ -14,7 +14,6 @@ export const convertDBLocationToLocation = (
     state,
     zip_code,
     coordinate,
-    created_at,
   } = dbLocation;
   return {
     id,
@@ -25,8 +24,10 @@ export const convertDBLocationToLocation = (
     city,
     state,
     zipCode: zip_code,
-    coordinate,
-    createdAt: created_at,
+    coordinate: {
+      lat: coordinate.coordinates?.[1],
+      lng: coordinate.coordinates?.[0],
+    },
   };
 };
 
