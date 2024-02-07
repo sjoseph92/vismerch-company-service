@@ -18,6 +18,7 @@ export interface DBProduct {
   description: string;
   price: string;
   image: string;
+  expirationDate: Date;
   company_id: number;
   created_at: Date;
 }

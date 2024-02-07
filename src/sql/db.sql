@@ -80,12 +80,50 @@ CREATE TABLE
     locations (
         id SERIAL,
         name VARCHAR(255) NOT NULL UNIQUE,
-        brand VARCHAR(255),
+        brand VARCHAR(50),
         address_line_1 VARCHAR(255) NOT NULL,
         address_line_2 VARCHAR(255),
-        city VARCHAR(255) NOT NULL,
-        state VARCHAR(255) NOT NULL,
+        city VARCHAR(30) NOT NULL,
+        state VARCHAR(2) NOT NULL,
         zip_code VARCHAR(10) NOT NULL,
         coordinate GEOMETRY (POINT, 4326),
+        PRIMARY KEY (id)
+    );
+
+/*
+ * Company Location Displays Table
+ */
+CREATE TABLE
+    displays (
+        id SERIAL,
+        company_location_id INTEGER NOT NULL REFERENCES company_locations (id),
+        type VARCHAR(30) NOT NULL,
+        PRIMARY KEY (id)
+    );
+
+/*
+ * Products Table
+ */
+CREATE TABLE
+    products (
+        id SERIAL,
+        name VARCHAR(255) NOT NULL,
+        company_id INTEGER NOT NULL REFERENCES companies (id),
+        sku VARCHAR(30) NOT NULL,
+        type VARCHAR(30) NOT NULL,
+        perishable BOOLEAN NOT NULL DEFAULT FALSE,
+        base_price NUMERIC(7, 5),
+        PRIMARY KEY (id)
+    );
+
+/*
+ * Display Products Table
+ */
+CREATE TABLE
+    display_products (
+        id SERIAL,
+        display_id INTEGER NOT NULL REFERENCES displays (id),
+        product_id INTEGER NOT NULL REFERENCES product (id),
+        
         PRIMARY KEY (id)
     );
